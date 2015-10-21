@@ -1,4 +1,3 @@
 #integrantes
 
-Palacios ISola Tobias Julian 
-Velazquez Thomas 
+Palacios ISola Tobias Julian           Velazquez Thomas 
