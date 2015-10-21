@@ -5,9 +5,9 @@ nuestro proyecto se basa en un juego de plataformas en el cual el obejtivo es ll
 
 ##primera edicion
 agregar el actor que sera el personaje principal.
-agregar torretas que ataquen a el jugador 
-agregar la salida del nivel 
+ agregar torretas que ataquen a el jugador.  
+ agregar la salida del nivel. 
  
 ##segunda edicion 
-agregar espinas (actor propio)que el jugador deva evitar 
-agregar una torreta que dispare balas que te sigan 
+agregar espinas (actor propio)que el jugador deva evitar.  
+ agregar una torreta que dispare balas que te sigan 
