@@ -3,7 +3,7 @@
 ##idea base
 nuestro proyecto se basa en un juego de plataformas en el cual el obejtivo es llegar al final del mapa sortenado los peligros
 
-##primeraedicion
+##primera edicion
 agregar el actor que sera el personaje principal.
 agregar torretas que ataquen a el jugador 
 agregar la salida del nivel 
