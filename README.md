@@ -1,7 +1,7 @@
 # Grupo12 
 
 ##idea base
-nuestro proyecto se basa en un juego de plataformas en el cual el obejtivo es llegar al final del mapa sortenado los peligros
+nuestro proyecto se basa en un juego de plataformas en el cual el objetivo es llegar al final del mapa sortenado los peligros
 
 ##primera edicion
 agregar el actor que sera el personaje principal.
