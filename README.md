@@ -17,4 +17,5 @@ agregar espinas (actor propio)que el jugador deva evitar.
 agregar una torreta que dispare balas que te sigan 
 ## realease 0.0.7
 agregar animaciones al impacto y al la entrada y salida  del personaje 
-
+## realease 0.0.8 
+agregar menu 
