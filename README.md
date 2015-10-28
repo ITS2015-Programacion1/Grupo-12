@@ -10,10 +10,11 @@ agregar el mapa con sus fisicas
 ##realease 0.0.3 
 agregar torretas que ataquen a el jugador.  
 ##realease 0.0.4
-agregar la salida y entrada del nivel. 
+agregar la salida y entrada del nivel.
 ## realease 0.0.5
 agregar espinas (actor propio)que el jugador deva evitar.  
 ## realese 0.0.6
 agregar una torreta que dispare balas que te sigan 
 ## realease 0.0.7
-agregar animaciones al impacto 
+agregar animaciones al impacto y al la entrada y salida  del personaje 
+
