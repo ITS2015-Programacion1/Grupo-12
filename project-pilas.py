@@ -23,7 +23,7 @@ class runner(pilasengine.actores.Actor):
         elif self.pilas.control.izquierda:
             self.figura.velocidad_x = -velocidad
            
-        elsea:
+        else:
             self.figura.velocidad_x = 0
 
         if self.esta_pisando_el_suelo():
@@ -35,8 +35,10 @@ class runner(pilasengine.actores.Actor):
     
     def esta_pisando_el_suelo(self):
         return len(self.sensor_pies.figuras_en_contacto) > 0
-                    mapa=pilas.actores.MapaTiled("juego_plataforma.tmx")
-                    runner = runner(pilas)
-                    runner.aprender("MoverseConelTeclado")
+runner = runner(pilas)
+runner.aprender("MoverseConelTeclado")
+runner.escala=0.1
+mapa_desde_archivo = pilas.actores.MapaTiled("juego_plataformas.tmx")
+
 
 pilas.ejecutar()
