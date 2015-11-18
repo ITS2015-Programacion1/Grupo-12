@@ -3,8 +3,10 @@
 # -*- coding: utf-8 -*-
 import pilasengine 
 pilas = pilasengine.iniciar()
+import random
+import math 
 #agregando el personaje 
-class runner(pilasengine.actores.Actor):
+class Runner(pilasengine.actores.Actor):
     def iniciar(self):
         self.imagen = "runner.png"
         self.figura = pilas.fisica.Circulo(self.x, self.y, 17,friccion=0, restitucion=0)
@@ -35,10 +37,46 @@ class runner(pilasengine.actores.Actor):
     
     def esta_pisando_el_suelo(self):
         return len(self.sensor_pies.figuras_en_contacto) > 0
-runner = runner(pilas)
+runner = Runner(pilas)
 runner.aprender("MoverseConelTeclado")
 runner.escala=0.1
-mapa_desde_archivo = pilas.actores.MapaTiled("juego_plataformas.tmx")
+runner.aprender("SeMantieneEnPantalla")
+
+
+class MirarActor (pilasengine.habilidades.Habilidad):
+
+                def iniciar(self, receptor, actor_perseguido, velocidad=1):    
+                    self.receptor = receptor
+                    self.actor_perseguido = actor_perseguido
+                    self.velocidad = velocidad
+        
+                def actualizar(self):
+                    x=self.actor_perseguido .x * -1
+                    b = 221
+                    h=math.sqrt(x*x+b*b)
+                    salpha= (math.sin(90)*x)/h
+                    alpha=math.asin(salpha)
+                    pilas.avisar(alpha)
+                    self.receptor.rotacion=(alpha)
+                    
+                    
+                            
+
+#agregando las torretas al mapa
+''' 
+class Torreta (pilasengine.actores.Actor):
+    def iniciar(self):
+        self.imagen= "torreta.png"
+torreta= Torreta(pilas)           
+'''
+
+pilas.habilidades.vincular(MirarActor)
+enemigo = pilas.actores.Torreta()
+enemigo.x = 100
+enemigo.x = 100
+enemigo.aprender("Disparar")
+enemigo.eliminar_habilidad("rotarconmouse")   
+enemigo.aprender("MirarActor", actor_perseguido = runner)                                                    
 
 
 pilas.ejecutar()
