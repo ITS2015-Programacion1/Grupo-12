@@ -5,13 +5,14 @@ import pilasengine
 pilas = pilasengine.iniciar()
 import random
 import math 
-#agregando el personaje
+#variables 
+balas_simples = pilas.actores.Misil
+
+#mapa
 mapa_desde_archivo=pilas.actores.MapaTiled("mapa_plataformas.tmx")
-def salir():
-    exit()
-def iniciar_juego():
-    menu.x=1445252345234 
-    class Runner(pilasengine.actores.Actor):
+
+# creando el personaje principal
+class  Runner(pilasengine.actores.Actor):
         def iniciar(self):
             self.imagen = "runner.png"
             self.figura = pilas.fisica.Circulo(self.x, self.y, 17,friccion=0, restitucion=0)
@@ -42,13 +43,14 @@ def iniciar_juego():
     
         def esta_pisando_el_suelo(self):
             return len(self.sensor_pies.figuras_en_contacto) > 0
-    runner = Runner(pilas)
-    runner.aprender("MoverseConelTeclado")
-    runner.escala=0.1
-    runner.aprender("SeMantieneEnPantalla")
 
+runner = Runner(pilas)
+runner.aprender("MoverseConelTeclado")
+runner.escala=0.09
+runner.aprender("SeMantieneEnPantalla")
 
-    class MirarActor (pilasengine.habilidades.Habilidad):
+#agregando habilidades 
+class MirarActor (pilasengine.habilidades.Habilidad):
 
                     def iniciar(self, receptor, actor_perseguido, velocidad=1):    
                         self.receptor = receptor
@@ -56,32 +58,42 @@ def iniciar_juego():
                         self.velocidad = velocidad
         
                     def actualizar(self):
-                        x=self.actor_perseguido .x * -1
-                        b = 221
-                        h=math.sqrt(x*x+b*b)
-                        salpha= (math.sin(90)*x)/h
-                        alpha=math.asin(salpha)
+                        self.receptor.rotacion=135
+                        self.receptor.disparar
+                         
                     
-                        self.receptor.rotacion=(alpha)
-                    
-                    
-                            
+#enemigo1                    
+pilas.habilidades.vincular(MirarActor)
+enemigo1 = pilas.actores.Torreta()
+enemigo1.x = 164
+enemigo1.y = 116
+enemigo1.aprender(pilas.habilidad.Disparar,grupo_ enemigos= runner, cuando_elimina_enemigo=perder_fin)
+enemigo1.eliminar_habilidad("rotarconmouse")   
+enemigo1.aprender("MirarActor", actor_perseguido = runner)                                                    
+enemigo1.municion=pilasengine.actores.Misil
 
-    #agregando las torretas al mapa
-    ''' 
-    class Torreta (pilasengine.actores.Actor):
-        def iniciar(self):
-            self.imagen= "torreta.png"
-    torreta= Torreta(pilas)           
-    '''
+#enemigo2
+enemigo2 = pilas.actores.Torreta()
+enemigo2.x = -307
+enemigo2.y = 227
+enemigo2.aprender("Disparar")
+enemigo2.eliminar_habilidad("rotarconmouse")                                                     
+enemigo2.municion=pilasengine.actores.Misil
+enemigo2.rotacion=225
+#creando las funciones 
+def perder_fin(runner, balas_simples):
+    runner.eliminar()
+    balas_simples.eliminar()
+    pilas.camara.vibrar(intensidad=2, tiempo=3)
+    global fin_del_juego
 
-    pilas.habilidades.vincular(MirarActor)
-    enemigo = pilas.actores.Torreta()
-    enemigo.x = 300
-    enemigo.y = 100
-    enemigo.aprender("Disparar")
-    enemigo.eliminar_habilidad("rotarconmouse")   
-    enemigo.aprender("MirarActor", actor_perseguido = runner)                                                    
-menu=pilas.actores.Menu([("INICIAR_JUEGO",iniciar_juego),("SALIR",salir)])
+def actor_destruido(disparo, runner):
+    runner.eliminar()
+    disparo.eliminar()
+    
+
+
+     
+#creando las colisiones del juego 
 
 pilas.ejecutar()
