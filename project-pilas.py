@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 import pilasengine 
@@ -8,6 +7,21 @@ import math
 #variables 
 balas_simples = pilas.actores.Misil
 
+#creando las funciones 
+def perder_fin(runner, balas_simples):
+    runner.eliminar()
+    balas_simples.eliminar()
+    pilas.camara.vibrar(intensidad=2, tiempo=3)
+    global fin_del_juego
+    pilas.actores.Texto("GAME OVER")
+
+
+
+def ganar(runner,puerta):
+    pilas.camara.vibrar(intensidad=2, tiempo=3)
+    global fin_del_juego
+    pilas.actores.Texto("Well done")
+    runner.eliminar()
 #mapa
 mapa_desde_archivo=pilas.actores.MapaTiled("mapa_plataformas.tmx")
 
@@ -65,10 +79,10 @@ class MirarActor (pilasengine.habilidades.Habilidad):
                     
 #enemigo1                    
 pilas.habilidades.vincular(MirarActor)
-enemigo1 = pilas.actores.Torreta(enemigos=runner, municion_bala_simple="Misil", cuando_elimina_enemigo=perder_fin)
+enemigo1 = pilas.actores.Torreta(enemigos=runner, municion_bala_simple="Misil", cuando_elimina_enemigo= perder_fin)
 enemigo1.x = 164
 enemigo1.y = 116
-enemigo1.aprender("Disparar"receptor, municion='Misil',  cuando_elimina_enemigo= perder_fin , frecuencia_de_disparo= 1, angulo_salida_disparo=135 , rotacion_disparo=90)
+enemigo1.aprender("Disparar",grupo_enemigos=[runner], municion='Misil',  cuando_elimina_enemigo= perder_fin , frecuencia_de_disparo= 1, angulo_salida_disparo=90)
 enemigo1.eliminar_habilidad("rotarconmouse")   
 enemigo1.aprender("MirarActor", actor_perseguido = runner)                                                    
 enemigo1.municion=pilasengine.actores.Misil
@@ -77,26 +91,30 @@ enemigo1.municion=pilasengine.actores.Misil
 enemigo2 = pilas.actores.Torreta(enemigos=runner, municion_bala_simple="Misil", cuando_elimina_enemigo=perder_fin)
 enemigo2.x = -307
 enemigo2.y = 227
-enemigo2.aprender("Disparar")
+enemigo2.aprender("Disparar",grupo_enemigos=[runner], municion='Misil',  cuando_elimina_enemigo= perder_fin , frecuencia_de_disparo= 1, angulo_salida_disparo=90)
 enemigo2.eliminar_habilidad("rotarconmouse")                                                     
 enemigo2.municion=pilasengine.actores.Misil
 enemigo2.rotacion=225
-#creando las funciones 
-def perder_fin(runner, balas_simples):
-    runner.eliminar()
-    balas_simples.eliminar()
-    pilas.camara.vibrar(intensidad=2, tiempo=3)
-    global fin_del_juego
-    pilas.actores.Texto("GAME OVER")
 
+#enemigo3
+enemigo3= pilas.actores.Torreta(enemigos=runner, municion_bala_simple="Misil", cuando_elimina_enemigo=perder_fin)
+enemigo3.x = -302
+enemigo3.y = 104
+enemigo3.aprender("Disparar",grupo_enemigos=[runner], municion='Misil',  cuando_elimina_enemigo= perder_fin , frecuencia_de_disparo= 1, angulo_salida_disparo=90)
+enemigo3.eliminar_habilidad("rotarconmouse")                                                     
+enemigo3.municion=pilasengine.actores.Misil
+enemigo3.rotacion=270
+enemigo3.aprender("Arrastrable")
 
-def actor_destruido(disparo, runner):
-    runner.eliminar()
-    disparo.eliminar()
+puerta=pilas.actores.Aceituna()
+puerta.x=265
+puerta.y=161
+puerta.escala=0
+
     
 
 
      
 #creando las colisiones del juego 
-
+pilas.colisiones.agregar(runner,puerta,ganar)
 pilas.ejecutar()
