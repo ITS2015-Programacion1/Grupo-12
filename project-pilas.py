@@ -68,13 +68,13 @@ pilas.habilidades.vincular(MirarActor)
 enemigo1 = pilas.actores.Torreta(enemigos=runner, municion_bala_simple="Misil", cuando_elimina_enemigo=perder_fin)
 enemigo1.x = 164
 enemigo1.y = 116
-enemigo1.aprender("Disparar")
+enemigo1.aprender("Disparar"receptor, municion='Misil',  cuando_elimina_enemigo= perder_fin , frecuencia_de_disparo= 1, angulo_salida_disparo=135 , rotacion_disparo=90)
 enemigo1.eliminar_habilidad("rotarconmouse")   
 enemigo1.aprender("MirarActor", actor_perseguido = runner)                                                    
 enemigo1.municion=pilasengine.actores.Misil
 
 #enemigo2
-enemigo2 = pilas.actores.Torreta()
+enemigo2 = pilas.actores.Torreta(enemigos=runner, municion_bala_simple="Misil", cuando_elimina_enemigo=perder_fin)
 enemigo2.x = -307
 enemigo2.y = 227
 enemigo2.aprender("Disparar")
